@@ -107,8 +107,13 @@ season_avg = season_avg.sort_values("season_label")
 
 season_chart = (
     alt.Chart(season_avg)
-    .mark_bar(color="#3B82F6")
+    .mark_bar()
     .encode(
+        color=alt.condition(
+            alt.datum.cnt == season_avg["cnt"].max(),
+            alt.value("#F97316"),
+            alt.value("#93B4D6")
+        ),
         x=alt.X(
             "season_label:N",
             sort=season_order,
@@ -190,8 +195,13 @@ weather_order = [
 
 weather_chart = (
     alt.Chart(weather_avg)
-    .mark_bar(color="#14B8A6")
+    .mark_bar()
     .encode(
+        color=alt.condition(
+            alt.datum.avg_rentals == weather_avg["avg_rentals"].max(),
+            alt.value("#F97316"),
+            alt.value("#93B4D6")
+        ),
         x=alt.X(
             "weather_label:N",
             sort=weather_order,
